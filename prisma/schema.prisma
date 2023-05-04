@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Game {
+  id         Int     @id @default(autoincrement())
+  isComplete Boolean @default(false) @map("is_complete")
+  word       String
+  creator    Player? @relation(fields: [playerId], references: [id])
+  playerId   Int?
+}
+
+model Player {
+  id            Int    @id @default(autoincrement())
+  name          String @unique
+  gamesWon      Int    @default(0) @map("games_won")
+  lowestGuesses Int    @default(27) @map("lowest_guesses")
+  games         Game[]
+}
