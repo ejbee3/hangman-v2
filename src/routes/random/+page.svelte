@@ -21,5 +21,7 @@
 </script>
 
 {#await getRandomWord() then word}
-  <GameView {word} />
+  <main>
+    <GameView {word} />
+  </main>
 {/await}

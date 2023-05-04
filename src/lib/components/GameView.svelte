@@ -1,21 +1,17 @@
 <script lang="ts">
   import Keyboard from "./Keyboard.svelte";
   import { drawManSwitch } from "./DrawHangMan.svelte";
-  import { browser } from "$app/environment";
   // @ts-ignore
   let canvas: any;
   export let word: string;
   let lettersGuessed: string[] = [];
-  let leastLettersGuessed: number = browser
-    ? Number(window.sessionStorage.getItem("leastGuesses"))
-    : 27;
+  let leastLettersGuessed: number;
+
   let stillPlaying = true;
   let strikes = 0;
   const strikesAllowed = 7;
   let won = false;
-  let wins: number = browser
-    ? Number(window.sessionStorage.getItem("wins"))
-    : 0;
+  let wins: number;
   let lost = false;
   const drawManArr = [
     "stand plus noose",
@@ -41,15 +37,16 @@
       .split("")
       .every((letter) => lettersGuessed.includes(letter))
   ) {
+    wins = Number(sessionStorage.getItem("wins")) || 0;
     wins++;
     sessionStorage.setItem("wins", `${wins}`);
+
+    leastLettersGuessed = Number(sessionStorage.getItem("leastGuesses")) || 27;
     if (leastLettersGuessed > lettersGuessed.length) {
       sessionStorage.setItem("leastGuesses", `${lettersGuessed.length}`);
-      leastLettersGuessed = Number(sessionStorage.getItem("leastGuesses"));
-    } else {
-      sessionStorage.setItem("leastGuesses", `${leastLettersGuessed}`);
-      leastLettersGuessed = Number(sessionStorage.getItem("leastGuesses"));
+      leastLettersGuessed = lettersGuessed.length;
     }
+
     setTimeout(() => {
       stillPlaying = false;
       won = true;
@@ -118,11 +115,11 @@
         <button class="btn" on:click={() => window.location.reload()}
           >Play again</button
         >
-        <form method="POST">
-          <input bind:value={wins} name="wins" type="number" hidden />
+        <form method="POST" action="/random">
+          <input value={wins} name="gamesWon" type="number" hidden />
           <input
-            bind:value={leastLettersGuessed}
-            name="leastGuesses"
+            value={leastLettersGuessed}
+            name="lowestGuesses"
             type="number"
             hidden
           />

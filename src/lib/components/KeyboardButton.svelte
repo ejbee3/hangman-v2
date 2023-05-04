@@ -8,7 +8,7 @@
 </script>
 
 <button
-  class="btn-sm btn-outline"
+  class="btn-sm btn-outline p-2"
   class:btn-disabled={disabled}
   class:btn-error={!inWord && disabled}
   class:btn-success={inWord && disabled}

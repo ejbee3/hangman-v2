@@ -1,8 +1,9 @@
-<script>
+<script lang="ts">
   import KeyboardButton from "./KeyboardButton.svelte";
-  export let guessLetter;
-  export let guessedLetters = [];
-  export let word;
+  type playerGuess = (l: string) => void;
+  export let guessLetter: playerGuess;
+  export let guessedLetters: string[] = [];
+  export let word: string;
 </script>
 
 <div class="w-min">
