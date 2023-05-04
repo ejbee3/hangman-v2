@@ -1,15 +1,21 @@
 <script lang="ts">
   import Keyboard from "./Keyboard.svelte";
   import { drawManSwitch } from "./DrawHangMan.svelte";
+  import { browser } from "$app/environment";
   // @ts-ignore
   let canvas: any;
   export let word: string;
   let lettersGuessed: string[] = [];
+  let leastLettersGuessed: number = browser
+    ? Number(window.sessionStorage.getItem("leastGuesses"))
+    : 27;
   let stillPlaying = true;
   let strikes = 0;
   const strikesAllowed = 7;
   let won = false;
-  let wins: number;
+  let wins: number = browser
+    ? Number(window.sessionStorage.getItem("wins"))
+    : 0;
   let lost = false;
   const drawManArr = [
     "stand plus noose",
@@ -35,10 +41,18 @@
       .split("")
       .every((letter) => lettersGuessed.includes(letter))
   ) {
+    wins++;
+    sessionStorage.setItem("wins", `${wins}`);
+    if (leastLettersGuessed > lettersGuessed.length) {
+      sessionStorage.setItem("leastGuesses", `${lettersGuessed.length}`);
+      leastLettersGuessed = Number(sessionStorage.getItem("leastGuesses"));
+    } else {
+      sessionStorage.setItem("leastGuesses", `${leastLettersGuessed}`);
+      leastLettersGuessed = Number(sessionStorage.getItem("leastGuesses"));
+    }
     setTimeout(() => {
       stillPlaying = false;
       won = true;
-      wins++;
       lost = false;
     }, 1500);
   }
@@ -104,7 +118,16 @@
         <button class="btn" on:click={() => window.location.reload()}
           >Play again</button
         >
-        <a class="btn" href="/leaderboard">Go to leaderboard</a>
+        <form method="POST">
+          <input bind:value={wins} name="wins" type="number" hidden />
+          <input
+            bind:value={leastLettersGuessed}
+            name="leastGuesses"
+            type="number"
+            hidden
+          />
+          <button class="btn-dark">Go to leaderboard</button>
+        </form>
       </div>
     {/if}
   </div>

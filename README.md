@@ -5,4 +5,12 @@
 1.  > fix the guesses count so correct guesses aren't counted
 2.  > work on leaderboard
 3.  > styling to make it look good
-4.  > unsplash animals? that's just an idea I can't get out of my head
+4.  > unsplash animals?
+
+unsplash api format:
+
+```
+https://api.unsplash.com/search/photos?query=possum&per_page=5
+```
+
+> then put your api key in the header!
