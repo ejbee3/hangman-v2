@@ -7,8 +7,8 @@ export const actions = {
     default: async ({ request, cookies }) => {
         const data = await request.formData();
 
-        let gamesWon = data.get("gamesWon");
-        let lowestGuesses = data.get("lowestGuesses");
+        let gamesWon = Number(data.get("gamesWon"));
+        let lowestGuesses = Number(data.get("lowestGuesses"));
         let name = cookies.get('playerName');
        
 

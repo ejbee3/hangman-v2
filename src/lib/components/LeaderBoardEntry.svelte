@@ -8,6 +8,6 @@
 <tr class="font-orbitron">
   <th>{total}</th>
   <td>{entry.name}</td>
-  <td>{entry.timesSolved}</td>
-  <td>{entry.leastGuessesDuringSession}</td>
+  <td>{entry.gamesWon}</td>
+  <td>{entry.lowestGuesses}</td>
 </tr>
