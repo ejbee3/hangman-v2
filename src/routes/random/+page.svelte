@@ -12,7 +12,8 @@
 
     if (res.ok) {
       const wordArr = text.split(/\s/gm).filter((el) => el.length > 0);
-      randomWord = wordArr[Math.floor(Math.random() * 52 + 1)];
+      randomWord =
+        wordArr[Math.floor(Math.random() * wordArr.length + 1)].toUpperCase();
       return randomWord;
     } else {
       throw new Error(text);

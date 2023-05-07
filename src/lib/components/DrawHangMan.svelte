@@ -13,6 +13,10 @@
       case "head":
         ctx.beginPath();
         ctx.arc(140, 57, 12, 0, Math.PI * 2);
+        ctx.moveTo(165, 54);
+        ctx.lineTo(115, 54);
+        ctx.arc(140, 57, 12, Math.PI * 1.2, Math.PI * 1.8, true);
+        ctx.fill();
         ctx.stroke();
         break;
       case "body":

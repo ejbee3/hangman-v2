@@ -12,7 +12,8 @@
       {#each row.split("") as letter}
         <KeyboardButton
           disabled={guessedLetters.includes(letter.toUpperCase())}
-          inWord={word.includes(letter)}
+          inWord={word.includes(letter) &&
+            guessedLetters.includes(letter.toUpperCase())}
           onClick={() => guessLetter(letter)}>{letter}</KeyboardButton
         >
       {/each}

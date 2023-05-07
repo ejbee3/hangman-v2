@@ -49,3 +49,6 @@ puffin
 racoon
 scorpion
 shark
+wolverine
+badger
+terrapin

@@ -31,12 +31,7 @@
     }, 1500);
   }
   // check for win
-  $: if (
-    word
-      .toUpperCase()
-      .split("")
-      .every((letter) => lettersGuessed.includes(letter))
-  ) {
+  $: if (word.split("").every((letter) => lettersGuessed.includes(letter))) {
     wins = Number(sessionStorage.getItem("wins")) || 0;
     wins++;
     sessionStorage.setItem("wins", `${wins}`);
@@ -54,11 +49,11 @@
     }, 1500);
   }
   function guessLetter(letter: string) {
-    if (lettersGuessed.includes(letter.toUpperCase())) {
+    if (lettersGuessed.includes(letter)) {
       return;
     }
     lettersGuessed = [...lettersGuessed, letter];
-    if (!word.toUpperCase().includes(letter.toUpperCase())) {
+    if (!word.includes(letter)) {
       strikes++;
       drawManSwitch(drawManArr[strikes - 1], canvas.getContext("2d"));
     }
@@ -81,9 +76,9 @@
       <canvas bind:this={canvas} />
       <div class="flex flex-col items-center w-min">
         <div>
-          {#each word.toUpperCase() as letter}
+          {#each word as letter}
             <span class="letter">
-              {#if lettersGuessed.includes(letter.toUpperCase())}
+              {#if lettersGuessed.includes(letter)}
                 {letter}
               {:else}
                 _
@@ -91,24 +86,20 @@
             </span>
           {/each}
         </div>
-        <Keyboard
-          {guessLetter}
-          guessedLetters={lettersGuessed}
-          word={word.toUpperCase()}
-        />
+        <Keyboard {guessLetter} guessedLetters={lettersGuessed} {word} />
         <div>Strikes {strikes}/{strikesAllowed}</div>
       </div>
     {:else}
       {#if won}
         <div>
-          <p>The word was: {word.toUpperCase()}</p>
+          <p>The word was: {word}</p>
           <p>Guessed in: {lettersGuessed.length} attempts</p>
-          <p>Letters guessed: {lettersGuessed.join(", ").toUpperCase()}</p>
+          <p>Letters guessed: {lettersGuessed.join(", ")}</p>
         </div>
       {:else}
         <div>
-          <p>The word was: {word.toUpperCase()}</p>
-          <p>Letters guessed: {lettersGuessed.join(", ").toUpperCase()}</p>
+          <p>The word was: {word}</p>
+          <p>Letters guessed: {lettersGuessed.join(", ")}</p>
         </div>
       {/if}
       <div class="mt-4">

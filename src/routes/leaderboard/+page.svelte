@@ -7,14 +7,16 @@
 
 <main>
   <h1>LEADERBOARD</h1>
-  <div class="overflow-x-auto">
-    <table class="table w-full">
-      <thead>
+  <div class="relative overflow-x-auto">
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+      <thead
+        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+      >
         <tr>
-          <th />
-          <th>Name</th>
-          <th># of wins</th>
-          <th>Lowest # of guesses</th>
+          <th scope="col" />
+          <th scope="col">Name</th>
+          <th scope="col"># of wins</th>
+          <th scope="col">Lowest # of guesses</th>
         </tr>
       </thead>
       <tbody>
