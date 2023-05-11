@@ -2,7 +2,7 @@
   import LeaderBoardEntry from "$lib/components/LeaderBoardEntry.svelte";
   import type { PageData } from "./$types";
   export let data: PageData;
-  export let total: number = data.list.total;
+  let total: number = data.list.total;
 </script>
 
 <main>

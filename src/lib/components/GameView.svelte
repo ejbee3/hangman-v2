@@ -1,8 +1,13 @@
 <script lang="ts">
   import Keyboard from "./Keyboard.svelte";
   import { drawManSwitch } from "./DrawHangMan.svelte";
+  // @ts-ignore
+  import type { PageData } from "./$types";
+
   let canvas: any;
+
   export let word: string;
+  export let player: PageData | Boolean = false;
   let lettersGuessed: string[] = [];
   let leastLettersGuessed: number;
 
@@ -31,7 +36,12 @@
   }
   // check for win
   $: if (word.split("").every((letter) => lettersGuessed.includes(letter))) {
-    wins = Number(sessionStorage.getItem("wins")) || 0;
+    // TODO : add to the wins for returningPlayer
+    if (player) {
+      wins = player.gamesWon;
+    } else {
+      wins = Number(sessionStorage.getItem("wins")) || 0;
+    }
     wins++;
     sessionStorage.setItem("wins", `${wins}`);
 

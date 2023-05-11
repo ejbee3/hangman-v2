@@ -5,7 +5,7 @@ export const load = (async () => {
 // 1.
 const [response, playerCount] = await prisma.$transaction([prisma.player.findMany({
   where: { gamesWon: {
-    gt: 1
+    gt: 0
   },
   },
 }), prisma.player.count(),])

@@ -1,10 +1,10 @@
 <script lang="ts">
   import GameView from "$lib/components/GameView.svelte";
-  //   import { onMount } from "svelte";
+  // @ts-ignore
+  import type { PageData } from "./$types";
 
-  //   let unusedWordArr: string[] = [];
-  //   let usedWordArr: string[] = [];
   let randomWord: string = "";
+  export let data: PageData;
 
   async function getRandomWord() {
     const res = await fetch(`/animals.txt`);
@@ -23,6 +23,8 @@
 
 {#await getRandomWord() then word}
   <main>
-    <GameView {word} />
+    {#each data.player as p (p.id)}
+      <GameView {word} player={p} />
+    {/each}
   </main>
 {/await}

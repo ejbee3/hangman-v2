@@ -20,7 +20,7 @@ export const actions = {
                  name,
             },
         });
-        cookies.set('playerName', name)
+        cookies.set('newPlayer', name)
         throw redirect(303, `/home`)
     },
 
@@ -44,7 +44,7 @@ export const actions = {
         });
 
         if (returningUser) {
-            cookies.set('playerName', returningUser.name)
+            cookies.set('returningPlayer', returningUser.name)
         } else {
             return fail(400, {returningUser, missing : true})
         }
