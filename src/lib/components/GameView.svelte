@@ -1,7 +1,6 @@
 <script lang="ts">
   import Keyboard from "./Keyboard.svelte";
   import { drawManSwitch } from "./DrawHangMan.svelte";
-  // @ts-ignore
   let canvas: any;
   export let word: string;
   let lettersGuessed: string[] = [];
@@ -106,7 +105,7 @@
         <button class="btn" on:click={() => window.location.reload()}
           >Play again</button
         >
-        <form method="POST" action="/random">
+        <form method="POST" action="/random?/rankings">
           <input value={wins} name="gamesWon" type="number" hidden />
           <input
             value={leastLettersGuessed}

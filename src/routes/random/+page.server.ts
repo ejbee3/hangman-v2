@@ -1,10 +1,14 @@
 import prisma from "$lib/prisma";
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
+// @ts-ignore
+import { UNSPLASH_ACCESS_KEY } from '$env/static/private';
+
+
 
 export const actions = {
     // 1.
-    default: async ({ request, cookies }) => {
+        rankings: async ({ request, cookies }) => {
         const data = await request.formData();
 
         let gamesWon = Number(data.get("gamesWon"));
@@ -35,5 +39,11 @@ export const actions = {
 
         //5.
         throw redirect(303, `/leaderboard`)
+    },
+
+    fetchImage: async ({ request }) => {
+        const data = await request.formData();
+        let searchTerm = data.get("word");
+        await fetch(`https://api.unsplash.com/search/photos/?client_id=${UNSPLASH_ACCESS_KEY}&?query=${searchTerm}&per_page=5`)
     }
 } satisfies Actions;
